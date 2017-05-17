@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "482486574389",
+    "firebase_url": "https://noche5-f790c.firebaseio.com",
+    "project_id": "noche5-f790c",
+    "storage_bucket": "noche5-f790c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482486574389:android:6ffb33e26041c5b3",
+        "android_client_info": {
+          "package_name": "com.example.zissu.noche_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "482486574389-4bobu5uqne2ain4u449vtfib3tun2259.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYN8ulCSBT1Zb7JVDgD8tzBqN80cHPZjE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

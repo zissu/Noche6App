@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/content_main_layout"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.zissu.noche_1.MainActivity"
+
+    tools:showIn="@layout/app_bar_main"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
+
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="72dp"
+        android:layout_height="75dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/restaurant"
+        android:onClick="onClickRes" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="76dp"
+        android:layout_height="73dp"
+        android:layout_above="@id/imageButton"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/club"
+        android:onClick="onClickClub" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="72dp"
+        android:layout_height="75dp"
+        android:layout_below="@id/imageButton"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bar"
+        android:onClick="onClickBar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@android:color/transparent"
+        android:id="@+id/content_frame"/>
+
+
+    <Button
+        android:id="@+id/bLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="27dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_toLeftOf="@+id/imageButton2"
+        android:layout_toStartOf="@+id/imageButton2"
+        android:text="התחבר"
+
+        />
+
+    <Button
+        android:id="@+id/bRegister1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="הרשם"
+        android:layout_alignBaseline="@+id/bLogin"
+        android:layout_alignBottom="@+id/bLogin"
+        android:layout_toRightOf="@+id/imageButton2"
+        android:layout_toEndOf="@+id/imageButton2"
+        />
+
+
+</RelativeLayout>

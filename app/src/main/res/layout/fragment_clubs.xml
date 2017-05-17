@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/tlv"
+    android:id="@+id/clubs"
+    tools:context="com.example.zissu.noche_1.ClubsFragment">
+
+    <ImageView
+        android:layout_width="126dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/d9"
+        android:id="@+id/image1"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/image2"
+        android:layout_toStartOf="@+id/image2" />
+    <ImageView
+        android:layout_width="126dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/aa"
+        android:id="@+id/image2"
+        android:layout_alignTop="@+id/image3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+    <ImageView
+    android:layout_width="126dp"
+    android:layout_height="120dp"
+    app:srcCompat="@drawable/bb"
+        android:id="@+id/image3"/>
+    <ImageView
+    android:layout_width="126dp"
+    android:layout_height="120dp"
+    app:srcCompat="@drawable/cc"
+        android:id="@+id/image4"
+        android:layout_alignTop="@+id/image5"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+    <ImageView
+    android:layout_width="126dp"
+    android:layout_height="120dp"
+    app:srcCompat="@drawable/dd"
+        android:id="@+id/image5"
+        android:layout_alignTop="@+id/image6"
+        android:layout_toLeftOf="@+id/image4"
+        android:layout_toStartOf="@+id/image4" />
+    <ImageView
+    android:layout_width="126dp"
+    android:layout_height="120dp"
+    app:srcCompat="@drawable/ee"
+        android:id="@+id/image6"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/image7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <ImageView
+    android:layout_width="126dp"
+    android:layout_height="120dp"
+    app:srcCompat="@drawable/ff"
+        android:id="@+id/image7"
+        android:layout_alignTop="@+id/image8"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <ImageView
+    android:layout_width="126dp"
+    android:layout_height="120dp"
+    app:srcCompat="@drawable/gg"
+        android:id="@+id/image8"
+        android:layout_alignTop="@+id/image9"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="126dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/w"
+        android:id="@+id/image9"
+        android:layout_below="@+id/image2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="14dp" />
+</RelativeLayout>
