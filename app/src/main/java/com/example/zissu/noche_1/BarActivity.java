@@ -14,6 +14,10 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,12 +67,23 @@ public class BarActivity extends AppCompatActivity {
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line);
                 }
+                String finalJson = buffer.toString();
+                JSONArray parentArray = new JSONArray(finalJson);
 
-                return buffer.toString();
+                StringBuffer data = new StringBuffer();
+                for(int i = 0; i<parentArray.length(); i++) {
+                    JSONObject finalObject = parentArray.getJSONObject(i);
+                    String barName = finalObject.getString("name");
+                    data.append(barName + "\n");
+                }
+
+                return data.toString();
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
                 e.printStackTrace();
             } finally {
                 if (connection != null)
