@@ -74,7 +74,12 @@ public class BarActivity extends AppCompatActivity {
                 for(int i = 0; i<parentArray.length(); i++) {
                     JSONObject finalObject = parentArray.getJSONObject(i);
                     String barName = finalObject.getString("name");
-                    data.append(barName + "\n");
+                    String openingHours = finalObject.getString("openingHours");
+                    String phone = finalObject.getString("phone");
+                    String link = finalObject.getString("url");
+                    String img = finalObject.getString("urlInside");
+                    data.append(barName + "\n" + openingHours + "\n" + phone + "\n"  + link + "\n" );
+
                 }
 
                 return data.toString();

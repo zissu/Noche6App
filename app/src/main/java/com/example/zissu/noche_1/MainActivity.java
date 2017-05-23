@@ -134,6 +134,10 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_bars) {
             Intent intent = new Intent(this, BarActivity.class);
             startActivity(intent);
+        }
+        else if (id == R.id.nav_favorite) {
+            Intent intent = new Intent(this, Favorite.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_restaurants) {
             RestaurantsFragment restaurantsFragment = new RestaurantsFragment();
@@ -158,10 +162,8 @@ public class MainActivity extends AppCompatActivity
 
 
     public void onClickBar (View view){
-        BarsFragment barsFragment = new BarsFragment();
-        FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.content_main_layout ,
-                barsFragment ,barsFragment.getTag() ).commit();
+        Intent intent = new Intent(this, BarActivity.class);
+        startActivity(intent);
     }
     public void onClickClub (View view){
         ClubsFragment clubsFragment = new ClubsFragment();

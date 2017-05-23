@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.zissu.noche_1">
 
+    <!-- Location premission -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -15,6 +18,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
+        <!-- launch fade out effect -->
         <activity android:name=".launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +32,8 @@
         <activity
             android:name=".BarActivity"
             android:label="@string/title_activity_bar"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Favorite"></activity>
     </application>
 
 </manifest>
