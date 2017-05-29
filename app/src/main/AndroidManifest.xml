@@ -29,11 +29,10 @@
 
         <uses-permission android:name="android.permission.INTERNET" />
 
-        <activity
-            android:name=".BarActivity"
-            android:label="@string/title_activity_bar"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".Favorite"></activity>
+        <activity
+            android:name=".BarActivity" />
     </application>
 
 </manifest>

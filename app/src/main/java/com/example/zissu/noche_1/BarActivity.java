@@ -1,16 +1,27 @@
 package com.example.zissu.noche_1;
-
+import com.example.zissu.noche_1.models.PlaceModel;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zissu.noche_1.models.PlaceModel;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -25,32 +36,29 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
+import static android.R.attr.data;
+
 public class BarActivity extends AppCompatActivity {
     private TextView tvData;
-
+    private ListView lvPlaces;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bar);
-        Button btnHit = (Button) findViewById(R.id.btnHit);
-        tvData = (TextView) findViewById(R.id.tvJsonItem);
-        btnHit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        lvPlaces = (ListView)findViewById(R.id.lvPlaces);
+//                new JSONTask().execute("http://193.106.55.121:8080/getAllPlaces");
 
-                new JSONTask().execute("http://193.106.55.121:8080/getAllPlaces");
-                Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
             }
-        });
-    }
 
-    public class JSONTask extends AsyncTask<String, String, String> {
+    public class JSONTask extends AsyncTask<String, String, List<PlaceModel>> {
 
         @Override
-        protected String doInBackground(String... params) {
+        protected List<PlaceModel> doInBackground(String... params) {
             HttpURLConnection connection = null;
             BufferedReader reader = null;
             try {
@@ -70,19 +78,37 @@ public class BarActivity extends AppCompatActivity {
                 String finalJson = buffer.toString();
                 JSONArray parentArray = new JSONArray(finalJson);
 
-                StringBuffer data = new StringBuffer();
+                List<PlaceModel> placeModelsList = new ArrayList<>();
                 for(int i = 0; i<parentArray.length(); i++) {
                     JSONObject finalObject = parentArray.getJSONObject(i);
-                    String barName = finalObject.getString("name");
-                    String openingHours = finalObject.getString("openingHours");
-                    String phone = finalObject.getString("phone");
-                    String link = finalObject.getString("url");
-                    String img = finalObject.getString("urlInside");
-                    data.append(barName + "\n" + openingHours + "\n" + phone + "\n"  + link + "\n" );
+                    PlaceModel placeModel = new PlaceModel();
+                    placeModel.setName(finalObject.getString("name"));
+                    placeModel.setOpeningHours(finalObject.getString("openingHours"));
+                    placeModel.setPhone(finalObject.getString("phone"));
+                    placeModel.setWeb(finalObject.getString("web"));
+                    placeModel.setLine(finalObject.getString("line"));
+                    placeModel.setRank(finalObject.getString("rank"));
+                    placeModel.setUrlFront(finalObject.getString("urlFront"));
+                    placeModel.setUrlInside(finalObject.getString("urlInside"));
+                    //might be problematic
+                    PlaceModel.Location location = new PlaceModel.Location();
+                    /*JSONObject locationObject = finalObject.getJSONObject("location");
+                    location.setCity(locationObject.getString("city"));
+                    location.setLat(locationObject.getDouble("lat"));
+                    location.setLon(locationObject.getDouble("lon"));*/
 
+
+                    //add multiple places
+                    placeModelsList.add(placeModel);
                 }
+//                    String img = finalObject.getString("urlInside");
+//                    data.append(barName +  "\n"+ janer +"\n" + openingHours + "\n" + phone + "\n" + webLink + "\n" +rank
+//                            + "\n"+ logo +
+//                            "\n"+ "\n"  );
 
-                return data.toString();
+
+
+                return placeModelsList;
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -106,9 +132,83 @@ public class BarActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(List<PlaceModel> result) {
             super.onPostExecute(result);
-            tvData.setText(result);
+
+            PlaceAdapter adapter = new PlaceAdapter(getApplicationContext(), R.layout.row, result);
+            lvPlaces.setAdapter(adapter);
         }
     }
+
+    public class PlaceAdapter extends ArrayAdapter {
+
+        private List<PlaceModel> placeModelList;
+        private int resource;
+        private LayoutInflater inflater;
+
+        public PlaceAdapter(Context context, int resource, List<PlaceModel> objects) {
+            super(context, resource, objects);
+            placeModelList = objects;
+            this.resource = resource;
+            inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            if(convertView == null){
+                convertView = inflater.inflate(resource, null);
+            }
+
+            ImageView icon;
+            TextView tvName, tvOpeningHours, web, phone, line1;
+            RatingBar rank;
+            TextView location1, city, lat, lon;
+
+            icon = (ImageView)convertView.findViewById(R.id.icon);
+            tvName = (TextView)convertView.findViewById(R.id.tvName);
+            tvOpeningHours = (TextView)convertView.findViewById(R.id.tvOpeningHours);
+            web = (TextView)convertView.findViewById(R.id.web);
+            phone = (TextView)convertView.findViewById(R.id.phone);
+            line1 = (TextView)convertView.findViewById(R.id.line);
+            rank = (RatingBar)convertView.findViewById(R.id.rank);
+            location1 =  (TextView)convertView.findViewById(R.id.location);
+
+            tvName.setText(placeModelList.get(position).getName());
+            tvOpeningHours.setText(placeModelList.get(position).getOpeningHours());
+            web.setText(placeModelList.get(position).getWeb());
+            phone.setText(placeModelList.get(position).getPhone());
+            line1.setText(placeModelList.get(position).getLine());
+
+            //rating bar
+            //rank.setRating(placeModelList.get(position).getRank());
+
+/*            StringBuffer stringBuffer = new StringBuffer();
+            for (PlaceModel.Location location : placeModelList.get(position).getLocations()){
+                stringBuffer.append(location.getCity() + "/n" + location.getLon() + "/n" + location.getLat() + "/n" +
+                        location.getLon() + "/n");
+            }
+            location1.setText(stringBuffer);*/
+            return convertView;
+        }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        if(id == R.id.action_refresh){
+            new JSONTask().execute("http://193.106.55.121:8080/getAllPlaces");
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
+
+

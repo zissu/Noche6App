@@ -13,9 +13,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
 public class Favorite extends AppCompatActivity {
 
     private Button b;
@@ -27,10 +32,8 @@ public class Favorite extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
-
         t = (TextView) findViewById(R.id.textView);
         b = (Button) findViewById(R.id.button);
-
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         listener = new LocationListener(){
             @Override
@@ -84,5 +87,11 @@ public class Favorite extends AppCompatActivity {
                 locationManager.requestLocationUpdates("gps", 5000, 0, listener);
             }
         });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 }
