@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:text="Link"
             android:id="@+id/web"
+            android:autoLink="all"
             android:textColor="#fff"/>
 
         <TextView
@@ -71,11 +72,12 @@
             android:stepSize="0.5"
             android:textColor="#fff"
             />
-        <TextView
+        <Button
+            android:onClick="onClickMoreInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Location"
-            android:id="@+id/location"
+            android:text="More Info"
+            android:id="@+id/MoreInfo"
             android:textColor="#fff"/>
 
     </LinearLayout>

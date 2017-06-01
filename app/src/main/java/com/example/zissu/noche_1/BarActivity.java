@@ -1,6 +1,7 @@
 package com.example.zissu.noche_1;
 import com.example.zissu.noche_1.models.PlaceModel;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -24,6 +25,9 @@ import android.widget.Toast;
 import com.example.zissu.noche_1.models.PlaceModel;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,14 +50,26 @@ import static android.R.attr.data;
 public class BarActivity extends AppCompatActivity {
     private TextView tvData;
     private ListView lvPlaces;
+    private Button moreInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bar);
-        lvPlaces = (ListView)findViewById(R.id.lvPlaces);
-//                new JSONTask().execute("http://193.106.55.121:8080/getAllPlaces");
 
-            }
+// Create default options which will be used for every
+//  displayImage(...) call if no options will be passed to this method
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+        .cacheInMemory(true)
+                .cacheOnDisk(true)
+        .build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+        .defaultDisplayImageOptions(defaultOptions)
+        .build();
+        ImageLoader.getInstance().init(config); // Do it on Application start
+
+
+        lvPlaces = (ListView)findViewById(R.id.lvPlaces);
+    }
 
     public class JSONTask extends AsyncTask<String, String, List<PlaceModel>> {
 
@@ -87,7 +103,7 @@ public class BarActivity extends AppCompatActivity {
                     placeModel.setPhone(finalObject.getString("phone"));
                     placeModel.setWeb(finalObject.getString("web"));
                     placeModel.setLine(finalObject.getString("line"));
-                    placeModel.setRank(finalObject.getString("rank"));
+                    placeModel.setRank(finalObject.getDouble("rank"));
                     placeModel.setUrlFront(finalObject.getString("urlFront"));
                     placeModel.setUrlInside(finalObject.getString("urlInside"));
                     //might be problematic
@@ -101,11 +117,6 @@ public class BarActivity extends AppCompatActivity {
                     //add multiple places
                     placeModelsList.add(placeModel);
                 }
-//                    String img = finalObject.getString("urlInside");
-//                    data.append(barName +  "\n"+ janer +"\n" + openingHours + "\n" + phone + "\n" + webLink + "\n" +rank
-//                            + "\n"+ logo +
-//                            "\n"+ "\n"  );
-
 
 
                 return placeModelsList;
@@ -172,7 +183,12 @@ public class BarActivity extends AppCompatActivity {
             phone = (TextView)convertView.findViewById(R.id.phone);
             line1 = (TextView)convertView.findViewById(R.id.line);
             rank = (RatingBar)convertView.findViewById(R.id.rank);
-            location1 =  (TextView)convertView.findViewById(R.id.location);
+            //location1 =  (TextView)convertView.findViewById(R.id.location);
+
+            // Then later, when you want to display image
+            ImageLoader.getInstance().displayImage(placeModelList.get(position).getUrlInside(), icon); // Default options will be used
+
+
 
             tvName.setText(placeModelList.get(position).getName());
             tvOpeningHours.setText(placeModelList.get(position).getOpeningHours());
@@ -208,6 +224,11 @@ public class BarActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClickMoreInfo (View view){
+        Intent intent = new Intent(this, MoreInfo.class);
+        startActivity(intent);
     }
 }
 

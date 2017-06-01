@@ -14,7 +14,7 @@ public class PlaceModel {
     private String openingHours;
     private String web;
     private String phone;
-    private String rank;
+    private Double rank;
     private String urlFront;
     private String urlInside;
     private String line;
@@ -59,11 +59,11 @@ public class PlaceModel {
         this.phone = phone;
     }
 
-    public String getRank() {
+    public Double getRank() {
         return rank;
     }
 
-    public void setRank(String rank) {
+    public void setRank(Double rank) {
         this.rank = rank;
     }
 

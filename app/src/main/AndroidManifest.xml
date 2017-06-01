@@ -3,8 +3,9 @@
     package="com.example.zissu.noche_1">
 
     <!-- Location premission -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -27,12 +28,9 @@
             </intent-filter>
         </activity>
 
-        <uses-permission android:name="android.permission.INTERNET" />
-
-
-        <activity android:name=".Favorite"></activity>
-        <activity
-            android:name=".BarActivity" />
+        <activity android:name=".Favorite" />
+        <activity android:name=".BarActivity" />
+        <activity android:name=".MoreInfo" />
     </application>
 
 </manifest>
