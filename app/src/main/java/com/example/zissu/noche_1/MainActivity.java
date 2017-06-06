@@ -140,16 +140,11 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_restaurants) {
-            RestaurantsFragment restaurantsFragment = new RestaurantsFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_main_layout ,
-                    restaurantsFragment , restaurantsFragment.getTag()).commit();
-
+            Intent intent = new Intent(this, ResActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_clubs) {
-            ClubsFragment clubsFragment = new ClubsFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_main_layout ,
-                    clubsFragment , clubsFragment.getTag()).commit();
+            Intent intent = new Intent(this, ClubActivity.class);
+            startActivity(intent);
 
 
         }
@@ -201,5 +196,4 @@ public class MainActivity extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment, fragmentTags).commit();
         }
     }
-
 }
