@@ -1,6 +1,7 @@
 package com.example.zissu.noche_1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -146,7 +147,11 @@ public class ResActivity extends AppCompatActivity {
         }
     }
 
-
+    public void onClickMoreInfo (View view){
+        Intent intent = new Intent(this, MoreInfo.class);
+        intent.putExtra("data", "More info from intent");
+        startActivity(intent);
+    }
 
 
     @Override

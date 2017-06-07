@@ -228,6 +228,7 @@ public class BarActivity extends AppCompatActivity {
 
     public void onClickMoreInfo (View view){
         Intent intent = new Intent(this, MoreInfo.class);
+        intent.putExtra("data", "More info from intent");
         startActivity(intent);
     }
 }
