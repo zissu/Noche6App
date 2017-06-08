@@ -11,20 +11,16 @@
     android:orientation="vertical"
     android:background="@drawable/tlv"
     tools:context="com.example.zissu.noche_1.Favorite">
-
 <Button
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/btnGet"
-    android:text="המומלצים עבורך"/>
- <ScrollView
-     android:layout_width="match_parent"
-     android:layout_height="match_parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textResponse"
-            android:textColor="#fff"
-            />
- </ScrollView>
+    android:text="בדקו איפה כדאי לכם לבלות"
+    android:id="@+id/btnFavorite"/>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lvPlaces1"
+            >
+
+        </ListView>
 </LinearLayout>
