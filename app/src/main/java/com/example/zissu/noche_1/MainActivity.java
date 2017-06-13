@@ -161,18 +161,12 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
     public void onClickClub (View view){
-        ClubsFragment clubsFragment = new ClubsFragment();
-        FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.content_main_layout ,
-                clubsFragment ,clubsFragment.getTag() ).commit();
-
+        Intent intent = new Intent(this, ClubActivity.class);
+        startActivity(intent);
     }
     public void onClickRes (View view){
-        RestaurantsFragment restaurantsFragment = new RestaurantsFragment();
-        FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.content_main_layout ,
-                restaurantsFragment ,restaurantsFragment.getTag() ).commit();
-
+        Intent intent = new Intent(this, ResActivity.class);
+        startActivity(intent);
     }
 
 

@@ -1,12 +1,20 @@
 package com.example.zissu.noche_1;
 
+import android.*;
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Movie;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,6 +57,13 @@ public class Favorite extends AppCompatActivity implements View.OnClickListener 
     private TextView tvData;
     private ListView lvPlaces1;
     private Button btnFavorite;
+
+    /*for map*/
+    private TextView currentLocation;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
+    private Button btnLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,12 +81,10 @@ public class Favorite extends AppCompatActivity implements View.OnClickListener 
         ImageLoader.getInstance().init(config); // Do it on Application start
 
 
-        lvPlaces1 = (ListView)findViewById(R.id.lvPlaces1);
-        btnFavorite = (Button)findViewById(R.id.btnFavorite);
+        lvPlaces1 = (ListView) findViewById(R.id.lvPlaces1);
+        btnFavorite = (Button) findViewById(R.id.btnFavorite);
         btnFavorite.setOnClickListener((View.OnClickListener) this);
-
     }
-
     @Override
     public void onClick(View v) {
         if(v == btnFavorite){
@@ -223,6 +236,11 @@ public class Favorite extends AppCompatActivity implements View.OnClickListener 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+    public void onClickMoreInfo (View view){
+        Intent intent = new Intent(this, MoreInfo.class);
+        intent.putExtra("data", "More info");
+        startActivity(intent);
     }
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item){

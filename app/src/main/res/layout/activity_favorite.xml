@@ -12,6 +12,17 @@
     android:background="@drawable/tlv"
     tools:context="com.example.zissu.noche_1.Favorite">
 <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="מיקום"
+    android:id="@+id/btnLocation"/>
+        <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:text="המיקום שלי"
+            android:id="@+id/currentLocation"/>
+        <Button
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="בדקו איפה כדאי לכם לבלות"

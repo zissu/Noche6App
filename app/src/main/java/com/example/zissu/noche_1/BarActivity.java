@@ -103,7 +103,7 @@ public class BarActivity extends AppCompatActivity {
                     placeModel.setPhone(finalObject.getString("phone"));
                     placeModel.setWeb(finalObject.getString("web"));
                     placeModel.setLine(finalObject.getString("line"));
-                    placeModel.setRank(finalObject.getDouble("rank"));
+                    //placeModel.setRank(finalObject.getDouble("rank"));
                     placeModel.setUrlFront(finalObject.getString("urlFront"));
                     placeModel.setUrlInside(finalObject.getString("urlInside"));
                     //might be problematic

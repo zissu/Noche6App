@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +27,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,12 +41,16 @@ import java.util.List;
 
 public class ClubActivity extends AppCompatActivity {
 
-    private ListView lvClub;
+    private TextView tvData;
+    private ListView lvPlaces2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_club);
 
+// Create default options which will be used for every
+//  displayImage(...) call if no options will be passed to this method
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
@@ -55,43 +61,56 @@ public class ClubActivity extends AppCompatActivity {
         ImageLoader.getInstance().init(config); // Do it on Application start
 
 
-        lvClub = (ListView)findViewById(R.id.lvClub);
+        lvPlaces2 = (ListView) findViewById(R.id.lvPlaces2);
     }
-
-    public class Task extends AsyncTask<String, String, List<PlaceModel>>{
+    public class JSONTask extends AsyncTask<String, String, List<PlaceModel>> {
 
         @Override
         protected List<PlaceModel> doInBackground(String... params) {
-            HttpURLConnection connection2 = null;
-            BufferedReader reader2 = null;
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
             try {
-                URL url2 = new URL(params[0]);
-                connection2 = (HttpURLConnection) url2.openConnection();
-                connection2.connect();
+                URL url = new URL(params[0]);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
 
-                InputStream stram2 = connection2.getInputStream();
-                reader2 = new BufferedReader(new InputStreamReader(stram2));
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
 
-                StringBuffer buffer2 = new StringBuffer();
+                StringBuffer buffer = new StringBuffer();
 
-                String line3 = "";
-                while ((line3 = reader2.readLine()) != null) {
-                    buffer2.append(line3);
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
                 }
-                ImageView urlPic1 = null;
-                String finalJson = buffer2.toString();
+                String finalJson = buffer.toString();
                 JSONArray parentArray = new JSONArray(finalJson);
-                StringBuffer data = new StringBuffer();
 
-                List<PlaceModel> clubModelList = new ArrayList<>();
-                for(int i=0; i<parentArray.length(); i++){
-                    PlaceModel clubModel = new PlaceModel();
-                    clubModel.setUrlFront(parentArray.getString(i));
-                    clubModelList.add(clubModel);
+                List<PlaceModel> placeModelsList = new ArrayList<>();
+                for (int i = 0; i < parentArray.length(); i++) {
+                    JSONObject finalObject = parentArray.getJSONObject(i);
+                    PlaceModel placeModel = new PlaceModel();
+                    placeModel.setName(finalObject.getString("name"));
+                    placeModel.setOpeningHours(finalObject.getString("openingHours"));
+                    placeModel.setPhone(finalObject.getString("phone"));
+                    placeModel.setWeb(finalObject.getString("web"));
+      //              placeModel.setRank(finalObject.getDouble("rank"));
+                    placeModel.setUrlFront(finalObject.getString("urlFront"));
+                    placeModel.setUrlInside(finalObject.getString("urlInside"));
+                    //might be problematic
+                    PlaceModel.Location location = new PlaceModel.Location();
+                    /*JSONObject locationObject = finalObject.getJSONObject("location");
+                    location.setCity(locationObject.getString("city"));
+                    location.setLat(locationObject.getDouble("lat"));
+                    location.setLon(locationObject.getDouble("lon"));*/
+
+
+                    //add multiple places
+                    placeModelsList.add(placeModel);
                 }
 
-                return clubModelList;
 
+                return placeModelsList;
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -100,66 +119,97 @@ public class ClubActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             } finally {
-                if (connection2 != null)
-                    connection2.disconnect();
+                if (connection != null)
+                    connection.disconnect();
                 try {
-                    if (reader2 != null) {
-                        reader2.close();
+                    if (reader != null) {
+                        reader.close();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
+
             return null;
         }
+
         @Override
         protected void onPostExecute(List<PlaceModel> result) {
             super.onPostExecute(result);
-            ClubActivity.ClubAdapter adapter1 = new ClubActivity.ClubAdapter(getApplicationContext(), R.layout.club_row, result);
-            lvClub.setAdapter(adapter1);
-        }
 
+            ClubActivity.PlaceAdapter adapter = new ClubActivity.PlaceAdapter(getApplicationContext(), R.layout.row, result);
+            lvPlaces2.setAdapter(adapter);
+        }
     }
 
-    public class ClubAdapter extends ArrayAdapter{
-        private List<PlaceModel> placeModelsList;
+    public class PlaceAdapter extends ArrayAdapter {
+
+        private List<PlaceModel> placeModelList;
         private int resource;
         private LayoutInflater inflater;
 
-        public ClubAdapter(Context context, int resource, List<PlaceModel> objects){
+        public PlaceAdapter(Context context, int resource, List<PlaceModel> objects) {
             super(context, resource, objects);
-            placeModelsList = objects;
+            placeModelList = objects;
             this.resource = resource;
             inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         }
+
         @Override
-        public View getView(int position, View convertView, ViewGroup parent){
-            if(convertView == null){
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            if (convertView == null) {
                 convertView = inflater.inflate(resource, null);
             }
-            ImageView club_logo;
 
-            club_logo = (ImageView)convertView.findViewById(R.id.club_logo);
-            ImageLoader.getInstance().displayImage(placeModelsList.get(position).getUrlFront() , club_logo);
+            ImageView icon;
+            TextView tvName, tvOpeningHours, web, phone, dj;
+            RatingBar rank;
+            TextView location1, city, lat, lon;
+
+            icon = (ImageView) convertView.findViewById(R.id.icon);
+            tvName = (TextView) convertView.findViewById(R.id.tvName);
+            tvOpeningHours = (TextView) convertView.findViewById(R.id.tvOpeningHours);
+            web = (TextView) convertView.findViewById(R.id.web);
+            phone = (TextView) convertView.findViewById(R.id.phone);
+            dj = (TextView)convertView.findViewById(R.id.line);
+            rank = (RatingBar) convertView.findViewById(R.id.rank);
+            //location1 =  (TextView)convertView.findViewById(R.id.location);
+
+            // Then later, when you want to display image
+            ImageLoader.getInstance().displayImage(placeModelList.get(position).getUrlInside(), icon); // Default options will be used
+
+
+            tvName.setText(placeModelList.get(position).getName());
+            tvOpeningHours.setText(placeModelList.get(position).getOpeningHours());
+            web.setText(placeModelList.get(position).getWeb());
+            phone.setText(placeModelList.get(position).getPhone());
+            dj.setText(placeModelList.get(position).getLine());
+                        //rating bar
+            //rank.setRating(placeModelList.get(position).getRank());
+
+/*            StringBuffer stringBuffer = new StringBuffer();
+            for (PlaceModel.Location location : placeModelList.get(position).getLocations()){
+                stringBuffer.append(location.getCity() + "/n" + location.getLon() + "/n" + location.getLat() + "/n" +
+                        location.getLon() + "/n");
+            }
+            location1.setText(stringBuffer);*/
             return convertView;
         }
     }
 
 
-
-
     @Override
-    public boolean onCreateOptionsMenu (Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+        @Override
+    public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
         if(id == R.id.action_refresh){
-            new ClubActivity.Task().execute("http://193.106.55.121:8080/getFrontUrlClubs");
+            new JSONTask().execute("http://193.106.55.121:8080/getAllClubs/");
             return true;
         }
         return super.onOptionsItemSelected(item);
