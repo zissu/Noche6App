@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
         b_register.setOnClickListener((View.OnClickListener) this);
 
 
-
+/*for search*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
         displayView(0);
     }
 
-
+/*login and register*/
     @Override
     public void onClick(View v) {
        if ( v == b_login ) {
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
+/*header of the app*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-
+/*side bar*/
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

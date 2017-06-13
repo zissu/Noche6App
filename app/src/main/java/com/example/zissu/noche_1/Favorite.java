@@ -104,8 +104,6 @@ public class Favorite extends AppCompatActivity implements View.OnClickListener,
         btnFavorite.setOnClickListener((View.OnClickListener) this);
 
         /*Location*/
-        mLatitudeTextView = (TextView) findViewById((R.id.latitude_textview));
-        mLongitudeTextView = (TextView) findViewById((R.id.longitude_textview));
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -199,12 +197,6 @@ public class Favorite extends AppCompatActivity implements View.OnClickListener,
     @Override
     public void onLocationChanged(Location location) {
 
-        String msg = "Updated Location: " +
-                Double.toString(location.getLatitude()) + "," +
-                Double.toString(location.getLongitude());
-        mLatitudeTextView.setText(String.valueOf(location.getLatitude()));
-        mLongitudeTextView.setText(String.valueOf(location.getLongitude() ));
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         // You can now create a LatLng Object for use with maps
          LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
     }
