@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.view.menu.MenuView;
 import android.util.Log;
+import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,6 +81,7 @@ public class MainActivity extends AppCompatActivity
            FragmentManager manager = getSupportFragmentManager();
            manager.beginTransaction().replace(R.id.content_main_layout,
                    login_fragment, login_fragment.getTag()).commit();
+
        }
 
            else if ( v == b_register) {
@@ -190,4 +193,5 @@ public class MainActivity extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment, fragmentTags).commit();
         }
     }
+
 }

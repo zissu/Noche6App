@@ -389,6 +389,7 @@ public class Favorite extends AppCompatActivity implements View.OnClickListener,
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.search_menu, menu);
         return true;
     }
     public void onClickMoreInfo (View view){

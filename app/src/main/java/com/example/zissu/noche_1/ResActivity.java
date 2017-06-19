@@ -211,6 +211,7 @@ public class ResActivity extends AppCompatActivity {
             new ResActivity.JSONTask().execute("http://193.106.55.121:8080/getAllRests/");
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
     public void onClickMoreInfo (View view){

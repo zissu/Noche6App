@@ -32,6 +32,7 @@ import java.util.List;
 public class SearchFragment extends ListFragment implements SearchView.OnQueryTextListener, MenuItem.OnActionExpandListener {
 
     List<String> mAllValues;
+    ListView listView;
     private ArrayAdapter<String> mAdapter;
     private Context mContext;
 
@@ -61,7 +62,7 @@ public class SearchFragment extends ListFragment implements SearchView.OnQueryTe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_search, container, false);
-        ListView listView = (ListView) layout.findViewById(android.R.id.list);
+        listView = (ListView) layout.findViewById(android.R.id.list);
         TextView emptyTextView = (TextView) layout.findViewById(android.R.id.empty);
         listView.setEmptyView(emptyTextView);
         return layout;
@@ -78,6 +79,13 @@ public class SearchFragment extends ListFragment implements SearchView.OnQueryTe
         super.onCreateOptionsMenu(menu, inflater);
 
         super.onCreateOptionsMenu(menu, inflater);
+
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
