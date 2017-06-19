@@ -61,6 +61,8 @@ public class ResActivity extends AppCompatActivity {
 
 
         lvPlaces3 = (ListView) findViewById(R.id.lvPlaces3);
+        new ResActivity.JSONTask().execute("http://193.106.55.121:8080/getAllRests/");
+
     }
     public class JSONTask extends AsyncTask<String, String, List<PlaceModel>> {
 

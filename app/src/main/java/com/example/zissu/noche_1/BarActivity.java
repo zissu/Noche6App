@@ -69,6 +69,8 @@ public class BarActivity extends AppCompatActivity {
 
 
         lvPlaces = (ListView)findViewById(R.id.lvPlaces);
+        new JSONTask().execute("http://193.106.55.121:8080/getAllPlaces");
+
     }
 
     public class JSONTask extends AsyncTask<String, String, List<PlaceModel>> {

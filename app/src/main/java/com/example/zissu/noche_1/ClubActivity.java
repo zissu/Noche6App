@@ -62,6 +62,8 @@ public class ClubActivity extends AppCompatActivity {
 
 
         lvPlaces2 = (ListView) findViewById(R.id.lvPlaces2);
+        new JSONTask().execute("http://193.106.55.121:8080/getAllClubs/");
+
     }
     public class JSONTask extends AsyncTask<String, String, List<PlaceModel>> {
 
