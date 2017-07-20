@@ -1,6 +1,7 @@
 package com.example.zissu.noche_1;
 
 
+import android.app.SearchManager;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.ListFragment;
@@ -75,8 +76,8 @@ public class SearchFragment extends ListFragment implements SearchView.OnQueryTe
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint("Search");
-
-        super.onCreateOptionsMenu(menu, inflater);
+        SearchManager manager = (SearchManager) getContext().getSystemService(Context.SEARCH_SERVICE);
+//        searchView.setSearchableInfo(manager.getSearchableInfo(getComponentName()));
 
         super.onCreateOptionsMenu(menu, inflater);
 

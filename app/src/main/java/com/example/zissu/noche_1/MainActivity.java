@@ -24,6 +24,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zissu.noche_1.models.loginandregister.LoginAcitivtyReal;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 
@@ -76,19 +77,17 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onClick(View v) {
        if ( v == b_login ) {
-
-           Login login_fragment = new Login();
-           FragmentManager manager = getSupportFragmentManager();
-           manager.beginTransaction().replace(R.id.content_main_layout,
-                   login_fragment, login_fragment.getTag()).commit();
-
+           Intent intent = new Intent(this, LoginAcitivtyReal.class);
+           startActivity(intent);
        }
 
            else if ( v == b_register) {
-           Register register_fragment = new Register();
-           FragmentManager manager1 = getSupportFragmentManager();
-           manager1.beginTransaction().replace(R.id.content_main_layout,
-                   register_fragment, register_fragment.getTag()).commit();
+//           Register register_fragment = new Register();
+//           FragmentManager manager1 = getSupportFragmentManager();
+//           manager1.beginTransaction().replace(R.id.content_main_layout,
+//                   register_fragment, register_fragment.getTag()).commit();
+           Intent intent = new Intent(this, RegisterActivity.class);
+           startActivity(intent);
 
        }
 

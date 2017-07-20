@@ -27,6 +27,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- launch fade out effect -->
         <activity android:name=".launcher">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -64,7 +65,14 @@
             android:name=".models.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".MyProfileActivity" />
+        <activity android:name=".models.loginandregister.Main2Activity">
+
+        </activity>
+        <activity android:name=".models.loginandregister.LoginAcitivtyReal">
+
+        </activity>
     </application>
 
 </manifest>
